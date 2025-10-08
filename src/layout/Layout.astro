@@ -1,0 +1,66 @@
+---
+const { title } = Astro.props;
+---
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title }</title>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+
+<style is:global >
+  * {
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+
+  body {
+    /* Imagen de fondo */
+    
+    background-image: url('/fondo.jpg'); /* la imagen debe estar en /public */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    color: #3a1934;
+    font-style: italic;
+  }
+  
+
+  /* 🎨 Estilos del botón imagen */
+  .boton {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+  }
+
+  .boton img {
+    width: 250px; /* o el tamaño que quieras */
+    height: auto;
+    display: block;
+  }
+
+  .comentario_respuesta {
+    width: 1100px;
+    height: 100px;
+    font-size: 18px;
+    padding: 10px;
+    border: 2px solid #77376b;
+    border-radius: 10px;
+    resize: none;
+    background-color: rgba(255, 255, 255, 0.85);
+    color: #3a1934;
+    font-style: italic;
+  }
+</style>
+

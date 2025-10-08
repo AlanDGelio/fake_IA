@@ -1,16 +1,167 @@
 ---
-
+import Layout from "../layout/Layout.astro";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title="Página de inicio">
+  <audio autoplay loop>
+    <source src="/public/fondo.mp3" type="audio/mpeg" />
+  </audio>
+
+  <audio id="boton">
+    <source src="/public/boton.mp3" type="audio/mpeg" />
+  </audio>
+
+  <div class="contenedor">
+    <h1 style="font-size: 4em;">Escribamos un cuento (˶ˆᗜˆ˵)</h1>
+    <br /><br />
+
+    <h2>
+      <p class="pregunta_1 pregunta active">Escribe tu Titulo ヽ(°〇°)ﾉ</p>
+    </h2>
+    <h2><p class="pregunta_2 pregunta">Escribe tu Inicio ❀⸜(˶´ ˘ `˶)⸝❀</p></h2>
+    <h2><p class="pregunta_3 pregunta">Escribe tu Desarrollo ᕙ(⇀‸↼‵‵)ᕗ</p></h2>
+    <h2><p class="pregunta_4 pregunta">Escribe tu Climax (°ロ°) !</p></h2>
+    <h2><p class="pregunta_5 pregunta">Escribe tu Final ٩(ˊᗜˋ )و</p></h2>
+    <h2>
+      <p class="pregunta_6 pregunta">
+        LISTO<br />(Presiona una vez mas "Siguiente" para ver la magia ⸜(｡˃ ᵕ ˂
+        )⸝♡)
+      </p>
+    </h2>
+
+    <br />
+    <textarea name="comentario" class="comentario_respuesta"></textarea>
+
+    <button class="boton btn_siguiente"
+      ><img src="/siguiente.png" alt="Siguiente" /></button
+    >
+
+    <div class="resultado">
+      <h1 class="resultado_nombre"></h1>
+
+      <p class="resultado_inicio"></p>
+      <p class="resultado_desarrollo"></p>
+      <p class="resultado_climax"></p>
+      <p class="resultado_final"></p>
+      <p class="resultado_final1"></p>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .contenedor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100dvh;
+  }
+
+  .contenedor .resultado {
+    width: 70%;
+    height: auto;
+    padding: 1rem 2rem;
+    background-color: rgb(255, 238, 238);
+    display: none;
+    margin-bottom: 3rem;
+  }
+
+  .contenedor .resultado p {
+    text-overflow: clip;
+  }
+
+  .pregunta {
+    display: none;
+  }
+
+  .pregunta_1.active,
+  .pregunta_2.active,
+  .pregunta_3.active,
+  .pregunta_4.active,
+  .pregunta_5.active,
+  .pregunta_6.active {
+    display: block;
+  }
+</style>
+
+<script>
+  const btnNext = document.querySelector(".btn_siguiente");
+  let cont = 0;
+
+  function simulandoPreguntas() {
+    const resultado = document.querySelector(".resultado");
+    const resultadoNombre = document.querySelector(".resultado_nombre");
+    const resultadoInicio = document.querySelector(".resultado_inicio");
+    const resultadoDesarrollo = document.querySelector(".resultado_desarrollo");
+    const resultadoClimax = document.querySelector(".resultado_climax");
+    const resultadoFinal = document.querySelector(".resultado_final");
+    const resultado_final1 = document.querySelector(".resultado_final1");
+    const comentarioRespuesta = document.querySelector(".comentario_respuesta");
+    const preguntas = document.querySelectorAll(".pregunta");
+
+    if (cont === preguntas.length - 1) {
+      btnNext.style.display = "none";
+      comentarioRespuesta.style.display = "none";
+      resultado.style.display = "block";
+      return;
+    }
+
+    if (cont === 0) {
+      resultadoNombre.textContent = comentarioRespuesta.value;
+      preguntas[cont].classList.remove("active");
+      preguntas[cont + 1].classList.add("active");
+      comentarioRespuesta.value = "";
+    }
+
+    if (cont === 1) {
+      resultadoInicio.textContent = comentarioRespuesta.value;
+      preguntas[cont].classList.remove("active");
+      preguntas[cont + 1].classList.add("active");
+      comentarioRespuesta.value = "";
+    }
+    if (cont === 2) {
+      resultadoDesarrollo.textContent = comentarioRespuesta.value;
+      preguntas[cont].classList.remove("active");
+      preguntas[cont + 1].classList.add("active");
+      comentarioRespuesta.value = "";
+    }
+
+    if (cont === 3) {
+      resultadoClimax.textContent = comentarioRespuesta.value;
+      preguntas[cont].classList.remove("active");
+      preguntas[cont + 1].classList.add("active");
+      comentarioRespuesta.value = "";
+    }
+    if (cont === 4) {
+      resultadoFinal.textContent = comentarioRespuesta.value;
+      preguntas[cont].classList.remove("active");
+      preguntas[cont + 1].classList.add("active");
+      comentarioRespuesta.value = "";
+    }
+
+    if (cont === 5) {
+      resultado_final1.textContent = comentarioRespuesta.value;
+      preguntas[cont].classList.remove("active");
+      preguntas[cont + 1].classList.add("active");
+      comentarioRespuesta.value = "";
+    }
+
+    cont += 1;
+    console.log(cont);
+  }
+
+  if (btnNext) {
+    btnNext.addEventListener("click", simulandoPreguntas);
+  }
+
+  const botonSiguiente = document.querySelector(".btn_siguiente");
+
+  // Seleccionamos el audio del clic
+  const sonidoClick = document.getElementById("boton");
+
+  // Reproducir sonido al presionar
+  botonSiguiente.addEventListener("click", () => {
+    sonidoClick.currentTime = 1; // Reinicia el sonido si se hace clic varias veces rápido
+    sonidoClick.play();
+  });
+</script>
